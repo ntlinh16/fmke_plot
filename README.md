@@ -34,7 +34,21 @@ $ Rscript --vanilla summary.r -i your/fmke/benchmark/results/directory -o your/f
 
 The graph will be saved at `your/fmke/benchmark/graph/output.png`
 
-### 3.Alternative Graph Generation by gnuplot
+## Troubleshooting Graph Generation
+
+If make results fails with the error `/usr/bin/env: Rscript --vanilla: No such file or directory`
+please edit `summary.r` and replace the first line with the full path to the Rscript binary on your system
+
+If you receive the error message `Warning: unable to access index for repository http://lib.stat.cmu.edu/R/CRAN/src/contrib`, it means the default R repo for installing additional packages is broken, you can change it as follows:
+
+```bash
+$ R
+> chooseCRANmirror()
+Selection: 69
+quit()
+```
+
+## Alternative Graph Generation by gnuplot
 You can generate graphs using gnuplot.
 
 ```bash
@@ -53,19 +67,3 @@ Some of options for these scripts are:
 For example, you can draw graphs with ASCII characters by the option `-t dumb`, which is useful in non-graphical environment or quick sharing of result in chat.
 
 Also, you can plot multiple test results on a single plot by using `-d` switch.
-
-## Troubleshooting Graph Generation
-
-If make results fails with the error `/usr/bin/env: Rscript --vanilla: No such file or directory`
-please edit `summary.r` and replace the first line with the full path to the Rscript binary on your system
-
-If you receive the error message `Warning: unable to access index for repository http://lib.stat.cmu.edu/R/CRAN/src/contrib`, it means the default R repo for installing additional packages is broken, you can change it as follows:
-
-```bash
-$ R
-> chooseCRANmirror()
-Selection: 69
-quit()
-```
-
-
