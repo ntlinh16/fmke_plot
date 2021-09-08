@@ -1,24 +1,30 @@
 # fmke_plot
-Script for plotting graphs of FMKe benchmark
 
-## Quick Start
-You must have [R](http://www.r-project.org) to generate graphs of your benchmarks. 
+You must have [R](http://www.r-project.org) to generate graphs of your benchmarks. Setting up the R environment with all the required dependencies may be cumbersome. Therefore, the easiest way is to use Docker to run the graph plotting script.
+
+```bash
+$ docker pull ntlinh/fmke_plot
+$ docker run -it --rm -v your/fmke/benchmark/results/directory/:/data -w /plot fmke_plot Rscript --vanilla summary.r -i /data -o /data/output.png
+```
+It will first pull the `ntlinh/fmke_plot` image from Docker hub. Then it will run a container that has R and all the required dependencies to generate the graph.
+The option `-v` will mount directory `your/fmke/benchmark/results/directory` to the directory `/data` inside your container. When running the R script `summary.r`, the option `-i` indicate the input directory that contains the `summary.csv` file, and the option `-o` is for the output path of the graph.
+
+You can also build the Docker image locally using the `Dockerfile` in this repository:
+```bash
+$ docker build -t fmke_plot .
+```
+and then run the command above to plot.
+
+## Plotting graphs directly
 
 The results are in CSV format in the `your/fmke/benchmark/results/directory`. Now you can generate a graph:
 
 ```bash
 $ cd fmke_plot
-$ Rscript --vanilla summary.r -i your/fmke/benchmark/results/directory
+$ Rscript --vanilla summary.r -i your/fmke/benchmark/results/directory -o your/fmke/benchmark/graph/output.png
 ```
-The output should be:
-```
-Loading required package: proto
-Loading required package: reshape
-Loading required package: plyr
-Loading required package: digest
-null device
-```
-The graph will be saved at `your/fmke/benchmark/results/directory/summary.png`
+
+The graph will be saved at `your/fmke/benchmark/graph/output.png`
 
 ## Troubleshooting Graph Generation
 
